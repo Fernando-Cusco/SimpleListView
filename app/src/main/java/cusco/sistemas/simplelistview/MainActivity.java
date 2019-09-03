@@ -3,8 +3,11 @@ package cusco.sistemas.simplelistview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ListView list;
+    private List<String> names;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.idListView);
 
         //datos que queremos mostrar
-        List<String> names = new ArrayList<String>();
+        names = new ArrayList<String>();
         names.add("Fernando Cusco");
         names.add("Maria Zeta");
         names.add("Santiago Cruz");
@@ -31,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         //establecemos el adaptador con nuestro ListView
         list.setAdapter(adapter);
 
-        
+        //item click
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "Posicion: "+i, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
