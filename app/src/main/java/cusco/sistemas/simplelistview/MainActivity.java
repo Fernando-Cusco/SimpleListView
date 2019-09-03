@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
 
         //establecemos el adaptador con nuestro ListView
-        list.setAdapter(adapter);
+        MyAdapter myAdapter = new MyAdapter(getApplicationContext(), R.layout.list_item, names);
+        list.setAdapter(myAdapter);
 
         //item click
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
