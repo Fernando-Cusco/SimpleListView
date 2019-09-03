@@ -28,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
         names.add("Maria Zeta");
         names.add("Santiago Cruz");
         names.add("Norma Abad");
+        names.add("Fernando Cusco");
+        names.add("Maria Zeta");
+        names.add("Santiago Cruz");
+        names.add("Norma Abad");
+        names.add("Fernando Cusco");
+        names.add("Maria Zeta");
+        names.add("Santiago Cruz");
+        names.add("Norma Abad");
+        names.add("Fernando Cusco");
+        names.add("Maria Zeta");
+        names.add("Santiago Cruz");
+        names.add("Norma Abad");
 
         //adaptador, forma visual en que se mostraran los datos
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);

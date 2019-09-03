@@ -42,14 +42,24 @@ public class MyAdapter  extends BaseAdapter {
     //dibujar
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        //copiamos la vista
-        View v = view;
-        //la vista la replicamos en nuestro layout
-        LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-        v = layoutInflater.inflate(R.layout.list_item, null);
+        //view Holder
+        ViewHolder holder;
+        if(view == null){
+            //la vista la replicamos en nuestro layout
+            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+            view = layoutInflater.inflate(R.layout.list_item, null);
+            holder = new ViewHolder();
+            holder.name= (TextView) view.findViewById(R.id.tvNombre);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
         String currentName = names.get(position);
-        TextView textView = (TextView) v.findViewById(R.id.tvNombre);
-        textView.setText(currentName);
-        return v;
+        holder.name.setText(currentName);
+        return view;
+    }
+
+    static class  ViewHolder{
+        private TextView name;
     }
 }
