@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this, "Posicion: "+i, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Posicion: "+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
