@@ -3,6 +3,9 @@ package cusco.sistemas.simplelistview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +18,9 @@ import java.util.List;
 public class GridActivity extends AppCompatActivity {
     private GridView list;
     private List<String> names;
+    private MyAdapter myAdapter;
+
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +33,12 @@ public class GridActivity extends AppCompatActivity {
         names.add("Fernando");
         names.add("Maria");
         names.add("Santiago");
-        names.add("Norma");
-        names.add("Fernando");
-        names.add("Maria");
-        names.add("Santiago");
-        names.add("Norma");
-        names.add("Fernando");
-        names.add("Maria");
-        names.add("Santiago");
-        names.add("Norma");
-        names.add("Fernando");
-        names.add("Maria");
-        names.add("Santiago");
-        names.add("Norma");
 
         //adaptador, forma visual en que se mostraran los datos
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
 
         //establecemos el adaptador con nuestro ListView
-        MyAdapter myAdapter = new MyAdapter(getApplicationContext(), R.layout.grid_item, names);
+        myAdapter = new MyAdapter(getApplicationContext(), R.layout.grid_item, names);
         list.setAdapter(myAdapter);
 
         //item click
@@ -55,5 +48,26 @@ public class GridActivity extends AppCompatActivity {
                 Toast.makeText(GridActivity.this, "Posicion: "+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add_item:
+                this.names.add("Add nº: "+(++counter));
+                //refrescamos el adaptador
+                this.myAdapter.notifyDataSetChanged();
+                return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
     }
 }
