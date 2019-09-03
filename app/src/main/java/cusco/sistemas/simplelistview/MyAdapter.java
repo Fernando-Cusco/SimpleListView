@@ -47,7 +47,7 @@ public class MyAdapter  extends BaseAdapter {
         if(view == null){
             //la vista la replicamos en nuestro layout
             LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-            view = layoutInflater.inflate(R.layout.list_item, null);
+            view = layoutInflater.inflate(this.layout, null);
             holder = new ViewHolder();
             holder.name= (TextView) view.findViewById(R.id.tvNombre);
             view.setTag(holder);
