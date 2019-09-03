@@ -3,6 +3,7 @@ package cusco.sistemas.simplelistview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,8 +49,11 @@ public class GridActivity extends AppCompatActivity {
                 Toast.makeText(GridActivity.this, "Posicion: "+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        registerForContextMenu(list);
     }
 
+    //Inflamos el layout del menu de opciones
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -57,17 +61,44 @@ public class GridActivity extends AppCompatActivity {
         return true;
     }
 
+    //evento del item del menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.add_item:
-                this.names.add("Add nº: "+(++counter));
-                //refrescamos el adaptador
-                this.myAdapter.notifyDataSetChanged();
-                return true;
+                case R.id.add_item:
+                    this.names.add("Add nº: "+(++counter));
+                    //refrescamos el adaptador
+                    this.myAdapter.notifyDataSetChanged();
+                    return true;
 
                 default:
                     return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //Inflamos el layout del context menu de opciones
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.setHeaderTitle(this.names.get(info.position));
+
+        inflater.inflate(R.menu.context_menu, menu);
+
+    }
+
+    //evento del item del context menu
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()){
+            case R.id.delete_item:
+                this.names.remove(info.position);
+                this.myAdapter.notifyDataSetChanged();
+                return true;
+                default:
+                    return super.onContextItemSelected(item);
         }
     }
 }
